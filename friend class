@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+
+class Enoch {
+private:
+    float money;
+protected:
+    int ID;
+
+public:
+    string nickname;
+
+    Enoch() { money = 100.00; ID = 12345; nickname = "CoolBeans"; }
+
+    void printInfo() {
+        cout << "My name is " << nickname << endl;
+        cout << "My ID is" << ID << endl;
+        cout << "I have " << money << "dollars" << endl;
+    }
+    friend class Jaime;
+};
+
+class Jaime {
+public:
+    void display(Enoch& e1)
+    {
+        cout << "The value of enochs private variable = " << e1.money << endl;
+        cout << "The value of enochs protected variable = " << e1.ID << endl;
+        cout << "The value of Enoch's Public Variable = " << e1.nickname << endl;
+    }
+};
+
+int main() {
+    Enoch e1;
+    Jaime j1;
+    j1.display(e1);
+}
