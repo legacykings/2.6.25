@@ -1,0 +1,147 @@
+# include <iostream>
+
+# include <cstdlib>
+
+# include <ctime>
+
+# include <string>
+
+using namespace std;
+
+class Car {
+
+private:
+
+    int engineHealth; // Private variable for engine health
+
+    int transmissionHealth; // Private variable for transmission health
+
+protected:
+
+    string lastServiceDate; // Protected variable for last service date
+
+public:
+
+    int fuelLevel; // Public variable for fuel level
+
+    // Constructor to initialize the car's attributes
+
+    Car(int fuel, string serviceDate) : fuelLevel(fuel), lastServiceDate(serviceDate) {
+
+        engineHealth = 0; // Initialize engine health
+
+        transmissionHealth = 0; // Initialize transmission health
+
+    }
+
+    // Method to display the car's status
+
+    void displayStatus() {
+
+        cout << "Car Status:" << endl;
+
+        cout << "Engine Health: " << engineHealth << endl;
+
+        cout << "Transmission Health: " << transmissionHealth << endl;
+
+        cout << "Last Service Date: " << lastServiceDate << endl;
+
+        cout << "Fuel Level: " << fuelLevel << endl;
+
+    }
+
+    // Method to simulate driving and change health values randomly
+
+    void drive() {
+
+        engineHealth = rand() % 4; // Randomly set engine health (0 to 3)
+
+        transmissionHealth = rand() % 4; // Randomly set transmission health (0 to 3)
+
+    }
+
+    // Friend class declaration
+
+    friend class Mechanic;
+
+};
+
+class Mechanic {
+
+public:
+
+    // Method to diagnose the car
+
+    void diagnose(Car& car) {
+
+        cout << "Diagnostic Report:" << endl;
+
+        cout << "Engine Health: ";
+
+        switch (car.engineHealth) {
+
+        case 0: cout << "No issues"; break;
+
+        case 1: cout << "Minor issues"; break;
+
+        case 2: cout << "Moderate issues"; break;
+
+        case 3: cout << "Severe issues"; break;
+
+        }
+
+        cout << endl << "Transmission Health: ";
+
+        switch (car.transmissionHealth) {
+
+        case 0: cout << "No issues"; break;
+
+        case 1: cout << "Minor issues"; break;
+
+        case 2: cout << "Moderate issues"; break;
+
+        case 3: cout << "Severe issues"; break;
+
+        }
+
+        cout << endl << "Last Service Date: " << car.lastServiceDate << endl;
+
+    }
+
+    // Method to fix the car
+
+    void fix(Car& car) {
+
+        car.engineHealth = 0; // Reset engine health to 0
+
+        car.transmissionHealth = 0; // Reset transmission health to 0
+
+        cout << "Car has been fixed. Engine and transmission health reset to 0." << endl;
+
+    }
+
+};
+
+int main() {
+
+    srand(static_cast<unsigned int>(time(0))); // Seed for random number generation
+
+    Car myCar(100, "2025-02-01"); // Create a Car object
+
+    Mechanic myMechanic; // Create a Mechanic object
+
+    myCar.displayStatus(); // Display initial status
+
+    myCar.drive(); // Simulate driving
+
+    myCar.displayStatus(); // Display status after driving
+
+    myMechanic.diagnose(myCar); // Diagnose the car
+
+    myMechanic.fix(myCar); // Fix the car
+
+    myCar.displayStatus(); // Display status after fixing
+
+    return 0;
+
+}
